@@ -1,4 +1,4 @@
-import * as user from './user'
+import * as user from './controllers/user'
 import * as auth from './auth'
 
 export default {

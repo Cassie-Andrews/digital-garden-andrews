@@ -1,6 +1,6 @@
 import { compare } from 'bcrypt'
 import User from './models/user'
-import dbConnect from './connection'
+import { normalizeId, dbConnect } from './util'
 
 export async function login(username, password) {
   if (!(username && password))
@@ -17,5 +17,5 @@ export async function login(username, password) {
   if (!isPasswordCorrect)
     throw new Error('Password is incorrect')
 
-  return user
+  return normalizeId(user)
 }
