@@ -1,5 +1,5 @@
-import User from './models/user'
-import dbConnect from './connection'
+import user from '../models/user'
+import dbConnect from '../connection'
 
 export async function create(username, password) {
   if (!(username && password))

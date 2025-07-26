@@ -1,7 +1,9 @@
-import * as user from './user'
-import * as auth from './auth'
+import * as user from './controllers/user'
+import * as auth from './controllers/auth'
 
-export default {
+const obj = {
   user,
   auth
 }
+
+export default obj
