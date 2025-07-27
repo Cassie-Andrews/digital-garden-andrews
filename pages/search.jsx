@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import Header from "../components/header"
-import { usePlantContext } from "../context"
+import { PlantProvider, usePlantContext } from "../context"
 import PlantList from "../components/plantList"
 import * as actions from "../context/action"
 import { useState, useRef } from 'react'
@@ -19,7 +19,7 @@ export const getServerSideProps = withIronSessionSsr(
         props.isLoggedIn = !!user;
         return { props }
     },
-    { sessionOptions }
+    sessionOptions
 )
 
 export default function Search(props) {
