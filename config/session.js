@@ -7,4 +7,4 @@ const sessionOptions = {
   },
 }
 
-export { sessionOptions }
+export default sessionOptions 
