@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css"
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
 import Header from "../components/header"
-import { PlantProvider, usePlantContext } from "../context"
+import { usePlantContext } from "../context"
 import PlantList from "../components/plantList"
 import * as actions from "../context/action"
 import { useState, useRef } from 'react'
@@ -36,7 +36,7 @@ export default function Search(props) {
         setPreviousQuery(query)
         setFetching(true)
         const res = await fetch(
-            `https://trefle.io/api/v1/plants/search?token=${TREFLE_API_TOKEN}&q=${query}`
+            `https://perenual.com/api/v2/species-list?key=${API_TOKEN}&q=${query}`
         )
         if (res.status !== 200) return
         const data = await res.json()
