@@ -8,6 +8,7 @@ import { usePlantContext } from "../context"
 import PlantList from "../components/plantList"
 import * as actions from "../context/action"
 import { useState, useRef } from 'react'
+import { searchPlants } from "../util/plant"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
