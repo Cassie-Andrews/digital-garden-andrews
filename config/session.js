@@ -1,4 +1,4 @@
-export const sessionOptions = {
+const sessionOptions = {
   cookieName: "mongo_auth_cookie",
   password: process.env.IRON_PASS,
   // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
@@ -6,3 +6,5 @@ export const sessionOptions = {
     secure: process.env.NODE_ENV === "production",
   },
 }
+
+export { sessionOptions }

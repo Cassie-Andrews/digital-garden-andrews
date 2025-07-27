@@ -1,4 +1,4 @@
-import user from '../models/user'
+import User from '../models/User'
 import dbConnect from '../connection'
 
 export async function create(username, password) {
@@ -8,9 +8,11 @@ export async function create(username, password) {
   await dbConnect()
 
   const user = await User.create({username, password})
+  console.log(user)
 
   if (!user)
     throw new Error('Error inserting User')
 
   return user.toJSON()
 }
+

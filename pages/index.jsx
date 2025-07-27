@@ -10,7 +10,7 @@ import useLogout from "../hooks/useLogout";
 
 export const getServerSideProps = withIronSessionSsr(
   async function getServerSideProps({ req }) {
-    const user = req.session.user;
+    const { user } = req.session;
     const props = {};
     if (user) {
       props.user = req.session.user;
