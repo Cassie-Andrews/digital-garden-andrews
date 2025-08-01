@@ -1,4 +1,5 @@
-import { Schema, model, models } from 'mongoose'
+import mongoose, { Schema, model, models } from 'mongoose'
+import { plantSchema } from '../models/Plant'
 import bcrypt from 'bcrypt'
 
 const UserSchema = new Schema({

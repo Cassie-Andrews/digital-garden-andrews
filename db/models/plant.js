@@ -1,10 +1,11 @@
 import { Schema } from 'mongoose'
 
-const plantSchema = new Schema({
+export const plantSchema = new Schema({
     id: Number,
     commonName: String,
-    scientificName: Array,
-    image: Object,
+    scientificName: [String],
+    image: {
+    url: String,
+    alt: String,
+    },
 })
-
-export default plantSchema
