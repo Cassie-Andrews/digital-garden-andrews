@@ -37,7 +37,7 @@ export default function Search(props) {
         if (fetching || !query.trim() || query === previousQuery) return
         setPreviousQuery(query)
         setFetching(true)
-        const res = await fetch(`https://perenual.com/api/v2/species-list?key=${process.env.PERENUAL_API_TOKEN}&q=${query}`)
+        const res = await fetch(`/api/plants/search?q=${encodeURIComponent(query)}`)
         if (res.status !== 200) return
         const data = await res.json()
         dispatch({

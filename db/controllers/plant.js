@@ -5,5 +5,15 @@ export async function getAll(userId) {
     await dbConnect()
     const user = await User.findById(userId).lean()
     if (!user) return null
-    //return user.
+    return user.plantCollection.map(plant => plant)
 }
+
+export async function getByPlantId(userId, commonName) {
+    await dbConnect()
+    const user = await User.findById(userId).lean()
+    if (!user) return null
+    const plant = user.plantCollection.find(plant => plant.plantId === plantId)
+    if (plant) return
+    return null
+}
+
