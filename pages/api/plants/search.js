@@ -2,6 +2,10 @@ import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../config/session";
 import db from '../../../db'
 
+
+
+
+/*
 export default withIronSessionSsr(
     async function handler(req, res) {
         
@@ -30,3 +34,4 @@ export default withIronSessionSsr(
     
     }
 )
+    */
