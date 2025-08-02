@@ -8,8 +8,6 @@ const sessionOptions = {
 }
 
 // troubleshooting "error - Error: iron-session: Bad usage. Minimum usage is const session = await getIronSession(req, res, { cookieName: "...", password: "...". Check the usage here: https://github.com/vvo/iron-session"
-if (!sessionOptions.password || sessionOptions.password.length < 32) {
-  throw new Error ("IRON_PASS must be 32 char min")
-}
+console.log("IRON_PASS loaded?", process.env.IRON_PASS?.length)
 
 export default sessionOptions 
