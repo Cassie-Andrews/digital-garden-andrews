@@ -6,7 +6,7 @@ export default function PlantCard({ plant }) {
     if (!plant) return null
 
     return (
-        <a className={styles.card}>
+        <div className={styles.card}>
             <Image 
                 src={plant.image_url || "/imageplaceholder.jpeg"}
                 alt={plant.common_name || "Plant"} 
@@ -14,6 +14,6 @@ export default function PlantCard({ plant }) {
                 height={400}
             />
             <p>{plant.common_name || "Unknown Plant" }</p>
-        </a>
+        </div>
     )
 }

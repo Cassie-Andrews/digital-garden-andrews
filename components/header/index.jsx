@@ -8,9 +8,11 @@ export default function Header(props) {
     <header className={styles.container}>
       {props.isLoggedIn ? (
         <>
-          <p>
-            <Link href="/">Home</Link>
-          </p>
+        <div className={styles.container}>
+          <p><Link href="/">Home</Link></p>
+          <p><Link href="/search">Search</Link></p>
+          <p><Link href="/collection">Collection</Link></p>
+        </div>
           <div className={styles.container}>
             <p>Welcome, {props.username}!</p>
             <p onClick={logout} style={{ cursor: "pointer" }}>

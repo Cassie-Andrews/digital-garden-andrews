@@ -53,8 +53,8 @@ export default function Home(props) {
         <div className={styles.grid}>
           {props.isLoggedIn ? (
             <>
-              <Link href="/dashboard" className={styles.card}>
-                <h2>Dashboard &rarr;</h2>
+              <Link href="/collection" className={styles.card}>
+                <h2>Collection &rarr;</h2>
                 <p>This page is only visible if you are logged in.</p>
               </Link>
               <div
