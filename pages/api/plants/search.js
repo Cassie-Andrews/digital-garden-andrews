@@ -2,7 +2,7 @@ import sessionOptions from "../../../config/session";
 import { getIronSession } from "iron-session";
 
 
-// actual API call lives in here!
+// use this file to connect user's query with API to return search results
 
 export default async function handler(req, res) {
     const session = await getIronSession(req, res, sessionOptions)

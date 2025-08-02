@@ -4,9 +4,15 @@ import styles from "./style.module.css"
 
 export default function PlantList({ plants }) {
     return (
-        <div className={styles.plantList}>
+        <div className={styles.list}>
             {plants.map((plant) => (
-                <PlantCard key={plant.plant_id} plant={plant} />
+                <Link
+                    key={plant.plant_id} 
+                    href={`/plant/${plant.plant_id}`}
+                    passHref
+                >
+                    <PlantCard plant={plant} />
+                </Link>
             ))}
         </div>
     )

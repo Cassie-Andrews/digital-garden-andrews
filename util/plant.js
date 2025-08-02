@@ -1,4 +1,6 @@
-// get plants -- API search by user query
+import db from "../db"
+
+// check if plant already exists
 export async function searchPlants(query) {
     const response = await fetch(`https://perenual.com/api/v2/species-list?key=${PERENUAL_API_TOKEN}&q=${query}`)
     if (response.status !== 200)

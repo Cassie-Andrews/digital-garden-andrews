@@ -12,7 +12,7 @@ export async function getByPlantId(userId, commonName) {
     await dbConnect()
     const user = await User.findById(userId).lean()
     if (!user) return null
-    const plant = user.plantCollection.find(plant => plant.plantId === plantId)
+    const plant = user.plantCollection.find(plant => plant.plantId === plant)
     if (plant) return
     return null
 }

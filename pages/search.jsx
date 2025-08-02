@@ -10,6 +10,8 @@ import * as actions from "../context/action"
 import { useState, useRef } from 'react'
 import { searchPlants } from "../util/plant"
 
+// use this page to display search bar and search results with PlantCard components
+// relies on /api/plants/search to actually get data
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {

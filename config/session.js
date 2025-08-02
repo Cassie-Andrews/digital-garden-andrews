@@ -7,7 +7,4 @@ const sessionOptions = {
   },
 }
 
-// troubleshooting "error - Error: iron-session: Bad usage. Minimum usage is const session = await getIronSession(req, res, { cookieName: "...", password: "...". Check the usage here: https://github.com/vvo/iron-session"
-console.log("IRON_PASS loaded?", process.env.IRON_PASS?.length)
-
 export default sessionOptions 
