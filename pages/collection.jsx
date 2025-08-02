@@ -14,7 +14,7 @@ import { isLocalURL } from "next/dist/shared/lib/router/router"
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
         const { user } = req.session
-        
+
         if (!user) {
             return {
                 redirect: {
@@ -30,20 +30,20 @@ export const getServerSideProps = withIronSessionSsr(
             props: {
                 isLoggedIn: true,
                 user,
-                plants,
+                plants: plants || [],
             }
         }
     },
     sessionOptions
 )
 
-export default function Collection({ isLoggedIn, plants }) {
+export default function Collection({ isLoggedIn, plants, user }) {
     return (
         <>
             <Head>
                 <title>User Plant Collection</title>
             </Head>
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} username={user?.username}/>
 
             <main>
                 <h1>Plant Collection 🪴</h1>

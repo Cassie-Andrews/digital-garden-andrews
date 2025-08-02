@@ -21,12 +21,16 @@ export const getServerSideProps = withIronSessionSsr(
             props.user = req.session.user
         }
         props.isLoggedIn = !!user;
-        return { props }
+        return { 
+            props: {
+                isLoggedIn: true,
+                user,
+            } }
     },
     sessionOptions
 )
 
-export default function Search(props) {
+export default function Search({ isLoggedIn, plants, user }) {
     const [{plantSearchResults}, dispatch] = usePlantContext()
     const [query, setQuery] = useState("")
     const [fetching, setFetching] = useState(false)
@@ -59,7 +63,7 @@ export default function Search(props) {
                 <title>Search page</title>
             </Head>
 
-            <Header isLoggedIn={props.isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} username={user?.username}/>
             
             <main>
                 <h1>Seach page</h1>
