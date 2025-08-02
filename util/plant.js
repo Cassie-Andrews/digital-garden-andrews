@@ -1,4 +1,5 @@
-import db from "../db"
+// importing db caused bcrypt error: 'cant resolve 'fs''
+// import db from "../db" //
 
 // check if plant already exists
 export async function searchPlants(query) {

@@ -8,9 +8,7 @@ export default function PlantList({ plants }) {
             {plants.map((plant) => (
                 <Link
                     key={plant.plant_id} 
-                    href={`/plant/${plant.plant_id}`}
-                    passHref
-                >
+                    href={`/plant/${plant.plant_id}`}>
                     <PlantCard plant={plant} />
                 </Link>
             ))}

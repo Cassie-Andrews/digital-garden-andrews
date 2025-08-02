@@ -1,9 +1,11 @@
 import * as user from './controllers/user'
 import * as auth from './controllers/auth'
+import * as plant from './controllers/plant'
 
-const obj = {
+export default {
   user,
-  auth
+  auth,
+  plant,
 }
 
-export default obj
+// export default obj

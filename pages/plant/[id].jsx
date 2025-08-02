@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { usePlantContext } from "../../context";
@@ -21,8 +20,7 @@ export const getServerSideProps = withIronSessionSsr(
             props.user = req.session.user
 
             const plant = await db.plant.getByPlantId(user.id, params.id)
-            if (plant)
-                props.plant = plant
+            if (plant) props.plant = plant
         }
 
         props.isLoggedIn = !!user
@@ -32,26 +30,19 @@ export const getServerSideProps = withIronSessionSsr(
 );
 
 // check if plant is in collection
-export default function plantCollection({ plant: userPlant }) {
+export default function Plant({ plant: userPlant, isLoggedIn }) {
     const router = useRouter()
-    const plantId = router.query.id 
-    const { isLoggedIn } = props
+    const plantId = router.query.id
     const [{ plantSearchResults }] = usePlantContext()
 
-    let plantCollection = false
-    let plant 
-    if (props.plant) {
-        plant = props.plant 
-        plantCollection = true
-    } else
-        plant = plantSearchResults.find(plant => plant.id === plantId)
-
+    let plant = userPlant || plantSearchResults.find(p => String(p.plant_id || p.id) === plantId)
+    const inCollection = !!userPlant
 
     // no plant from search/context or getServerSideProps/collections -> redirect
     useEffect(() => {
-        if (!props.plant && !plant)
+        if (!userPlant && !plant)
             router.push('/')
-    }, [props.plant, plantSearchResults, plant, router])
+    }, [userPlant, plant, router])
     
     // Add to collection
     async function addToCollection() {
@@ -91,12 +82,21 @@ export default function plantCollection({ plant: userPlant }) {
             
             <Header isLoggedIn={isLoggedIn} />
 
-            {
-                plant &&
-                <main>
+            {plant && (
+                <main className={styles.container}>
                     <PlantCard plant={plant}/>
+                    <div>
+                        {isLoggedIn && (
+                            inCollection ? (
+                                <button onClick={removeFromCollection}>Remove from Collection</button>
+                            ) : (
+                                <button onClick={addToCollection}>Add to Collection</button>
+                            )
+                        )}
+                        <button onClick={() => router.back()}>Return</button>
+                    </div>
                 </main>
-            }
+            )}
         </>
     )
 }
