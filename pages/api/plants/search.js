@@ -14,9 +14,14 @@ export default async function handler(req, res) {
     const query = req.query.q || ""
 
     try {
+        console.log("Query:", req.query.q)
         const response = await fetch(
             `https://perenual.com/api/v2/species-list?key=${process.env.PERENUAL_API_TOKEN}&q=${encodeURIComponent(query)}`)
+
         const data = await response.json()
+
+        console.log("Status:", response.status)
+        console.log("API response:", data)
 
         return res.status(200).json(data)
     } catch (error) {

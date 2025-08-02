@@ -43,11 +43,11 @@ export default function Search(props) {
         dispatch({
             action: actions.SEARCH_PLANTS,
             payload: data
-                ?.items
-                ?.map(({id}) => ({
+                ?.data
+                ?.map(({ id, default_image }) => ({
                     plant_id: id,
-                    image_url: image_url
-                }))
+                    image_url: default_image?.small_url || ""
+                })) || []
         })
         setFetching(false)
     }

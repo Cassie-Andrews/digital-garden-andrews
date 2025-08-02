@@ -1,18 +1,17 @@
 import Link from "next/link"
-import styles from "./style.module.css"
 import Image from "next/image"
+import styles from "./style.module.css"
 
-export default function PlantCard({
-    name,
-    plant_id,
-    image_url
-}) {
+export default function PlantCard({ plant }) {
     return (
         <div>
-            <Image src={image_url ? image_url : "#"} alt={name} />
-            <div>
-                <p>{name}</p>
-            </div>
+            <Image 
+                src={plant.image_url || "/placeholder.jpg"}
+                alt={plant.common_name || "Plant"} 
+                width={400}
+                height={400}
+            />
+            <p>{plant.common_name}</p>
         </div>
     )
 }

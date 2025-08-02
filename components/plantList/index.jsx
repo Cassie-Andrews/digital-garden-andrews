@@ -1,11 +1,13 @@
 import Link from "next/link"
-import plantCard from "../plantCard"
+import PlantCard from "../plantCard"
 import styles from "./style.module.css"
 
-export default function PlantList({plants}) {
+export default function PlantList({ plants }) {
     return (
-        <>
-        
-        </>
+        <div className={styles.plantList}>
+            {plants.map((plant) => (
+                <PlantCard key={plant.plant_id} plant={plant} />
+            ))}
+        </div>
     )
 }
