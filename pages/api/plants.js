@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     console.log("api plants!!!")
     const session = await getIronSession(req, res, sessionOptions)
 
-    const user = req.session.user
+    const user = session.user
 
     if (!user || !user.id) {
         console.log("no user session found")

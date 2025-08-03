@@ -1,11 +1,11 @@
 import { withIronSessionApiRoute } from "iron-session/next";
-import sessionOptions from "../../../config/session"
+import sessionOptions from "../../../config/session";
+import dbConnect from '../../../db/controllers/util/connection';
+import User from '../../../db/models/user';
 import db from '../../../db'
 
 export default withIronSessionApiRoute(
   async function handler(req, res) {
-    console.log(req.query.action)
-    console.log(req.method)
     if (req.method !== 'POST')
       return res.status(404).end()
     switch(req.query.action) {
@@ -25,13 +25,16 @@ export default withIronSessionApiRoute(
 async function login(req, res) {
   const { username, password } = req.body
   try {
-    const {
-      password: _,
-      ...otherFields
-    } = await db.auth.login(username, password)
-    req.session.user = otherFields
+    await dbConnect()
+    const user = await db.auth.login(username, password)
+
+    req.session.user = {
+      id: user._id.toString(),
+      username: user.username,
+    }
+
     await req.session.save()
-    res.status(200).end()
+    res.status(200).json({ user: req.session.user })
   } catch(err) {
     res.status(400).json({error: err.message})
   }
@@ -45,12 +48,14 @@ async function logout(req, res) {
 async function signup(req, res) {
   try {
     const { username, password } = req.body
-    const {
-      password: _,
-      ...otherFields
-    } = await db.user.create(username, password)
+    await dbConnect()
+    const newUser = await db.user.create(username, password)
 
-    req.session.user = otherFields
+    req.session.user = {
+      id: newUser._id.toString(),
+      username: newUser.username,
+    }
+    
     await req.session.save()
 
     res.status(201).json({ user: req.session.user })
