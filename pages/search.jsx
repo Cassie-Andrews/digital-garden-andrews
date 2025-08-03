@@ -42,7 +42,11 @@ export default function Search({ isLoggedIn, plants, user }) {
         if (fetching || !query.trim() || query === previousQuery) return
         setPreviousQuery(query)
         setFetching(true)
-        const res = await fetch(`/api/plants?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/plants?q=${encodeURIComponent(query)}`, {
+            method: "GET",
+            credentials: "include",
+        })
+        
         if (res.status !== 200) return
         const data = await res.json()
         dispatch({

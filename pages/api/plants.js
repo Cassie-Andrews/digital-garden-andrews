@@ -6,13 +6,18 @@ import User from "../../db/models/User";
 import dbConnect from "../../db/controllers/util/connection";
 
 export default async function handler(req, res) {
+    console.log("api plants!!!")
     const session = await getIronSession(req, res, sessionOptions)
+
     const user = session.user
 
     if (!user || !user.id) {
+        console.log("no user session found")
         return res.status(401).json({ message: "Please log in"})
     }
 
+    console.log("user session was found")
+    console.log("API KEY:", process.env.PERENUAL_API_TOKEN)
     await dbConnect()
 
     const dbUser = await User.findById(user.id)
@@ -25,12 +30,12 @@ export default async function handler(req, res) {
     // SEARCH API
         case 'GET': {
         const query = req.query.q || ""
-        
         if (!query) {
             return res.status(400).json({ error: "Missing search query" })
         }
 
         try {
+
             const response = await fetch(
                 `https://perenual.com/api/v2/species-list?key=${process.env.PERENUAL_API_TOKEN}&q=${encodeURIComponent(query)}`)
             const data = await response.json()
