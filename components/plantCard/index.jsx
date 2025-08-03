@@ -5,10 +5,12 @@ import styles from "./style.module.css"
 export default function PlantCard({ plant }) {
     if (!plant) return null
 
+    console.log("Plant card data:", plant)
+
     return (
         <div className={styles.card}>
             <Image 
-                src={plant.image_url || "/imageplaceholder.jpeg"}
+                src={plant.imageUrl || "/imageplaceholder.jpeg"}
                 alt={plant.common_name || "Plant"} 
                 width={400}
                 height={400}

@@ -6,7 +6,7 @@ import Header from "../components/header"
 import PlantList from "../components/plantList"
 import { usePlantContext } from "../context"
 import * as actions from "../context/action"
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import styles from "../styles/Home.module.css"
 
 // use this page to display search bar and search results with PlantCard components
@@ -29,12 +29,17 @@ export const getServerSideProps = withIronSessionSsr(
 
 export default function Search({ user, isLoggedIn }) {
     const router = useRouter();
-    const [ state, dispatch ] = usePlantContext()
-    const [loading, setLoading] = useState(false)
-    const [query, setQuery] = useState("")
-    const [previousQuery, setPreviousQuery] = useState(null)
-    const inputRef = useRef()
-    const inputDivRef = useRef()
+    const [state, dispatch] = usePlantContext();
+    const [loading, setLoading] = useState(false);
+    const [query, setQuery] = useState("");
+    const [previousQuery, setPreviousQuery] = useState(null);
+
+    useEffect(() => {
+        console.log("Search results in state:", state.searchResults);
+    }, [state.searchResults]);
+
+    const inputRef = useRef();
+    const inputDivRef = useRef();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -48,14 +53,14 @@ export default function Search({ user, isLoggedIn }) {
             const response = await fetch(`/api/plants?q=${query}`, {
                 method: "GET",
                 credentials: "include",
-            })
+            });
 
             const data = await response.json()
 
             if(response.ok) {
                 dispatch({
                     type: actions.SET_SEARCH_RESULTS,
-                    payload: data.data
+                    payload: data.data,
                 })
             } else {
                 console.error("Search failed:", data)

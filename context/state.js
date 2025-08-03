@@ -1,5 +1,5 @@
 const initialState = {
-    plantSearchResults: []
+    searchResults: []
 }
 
 export default initialState

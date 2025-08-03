@@ -37,6 +37,7 @@ export default function Signup(props) {
           "content-type": "application/json",
         },
         body: JSON.stringify({ username, password }),
+        credentials: "include",
       });
       if (res.status === 200 || res.status === 201)   return router.push("/collection");
       const { error: message } = await res.json();

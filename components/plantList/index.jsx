@@ -7,8 +7,8 @@ export default function PlantList({ plants }) {
         <div className={styles.list}>
             {plants.map((plant) => (
                 <Link
-                    key={plant.plant_id} 
-                    href={`/plant/${plant.plant_id}`}>
+                    key={plant.id} 
+                    href={`/plant/${plant.id}`}>
                     <PlantCard plant={plant} />
                 </Link>
             ))}
