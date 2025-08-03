@@ -3,10 +3,10 @@ import User from '../models/User'
 import dbConnect from './util/connection'
 
 export async function login(username, password) {
+  await dbConnect()
   if (!(username && password))
     throw new Error('Must include username and password')
 
-  await dbConnect()
   const user = await User.findOne({username}).lean()
 
   if (!user)
