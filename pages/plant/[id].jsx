@@ -14,16 +14,14 @@ import db from "../../db";
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req, params }) {
         const { user } = req.session
-        const props = {}
+        const props = { isLoggedIn: !!user }
 
         if (user) {
-            props.user = req.session.user
+            props.user = user
 
             const plant = await db.plant.getByPlantId(user.id, params.id)
             if (plant) props.plant = plant
         }
-
-        props.isLoggedIn = !!user
         return { props }
     },
     sessionOptions
@@ -33,35 +31,50 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Plant({ plant: userPlant, isLoggedIn }) {
     const router = useRouter()
     const plantId = router.query.id
-    const [{ plantSearchResults }] = usePlantContext()
+    const [{ searchResults }] = usePlantContext()
 
-    let plant = userPlant || plantSearchResults.find(p => String(p.plant_id || p.id) === plantId)
+    const fallbackPlant = searchResults?.find((p) => String(p.plant_id || p.id) === plantId)
+    
+    const plant = userPlant || fallbackPlant
     const inCollection = !!userPlant
 
     // no plant from search/context or getServerSideProps/collections -> redirect
     useEffect(() => {
-        if (!userPlant && !plant)
+        if (!plant)
             router.push('/')
-    }, [userPlant, plant, router])
+    }, [plant, router])
     
     // Add to collection
     async function addToCollection() {
-        const response = await fetch('/api/plants/search', {
+        const response = await fetch('/api/plants', {
             method: 'POST',
             header: {
                 'content-type': 'application/json',
             },
-            body: JSON.stringify(plant)
+            body: JSON.stringify({
+                ...plant,
+                plant_id: plant.plant_id || plant.id,
+            })
         })
-
-        if (response.ok) {
-            router.replace(router.asPath)
+        
+        const text = await response.text()
+        try {
+            const data = JSON.parse(text)
+            if (response.ok) {
+                alert("plant added")
+                router.replace(router.asPath)
+            } else {
+                alert(`Error: ${data.message}`)
+            }
+        } catch (err) {
+            console.error("Invalid JSON:", text)
+            alert("Error :(")
         }
     }
 
     // remove from collection
     async function removeFromCollection() {
-        const response = await fetch('/api/plants/search', {
+        const response = await fetch('/api/plants', {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json',

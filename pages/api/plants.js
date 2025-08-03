@@ -6,7 +6,6 @@ import User from "../../db/models/User";
 import dbConnect from "../../db/controllers/util/connection";
 
 export default async function handler(req, res) {
-    console.log("api plants!!!")
     const session = await getIronSession(req, res, sessionOptions)
 
     const user = session.user
@@ -17,7 +16,6 @@ export default async function handler(req, res) {
     }
 
     console.log("user session was found")
-    console.log("API KEY:", process.env.PERENUAL_API_TOKEN)
     await dbConnect()
 
     const dbUser = await User.findById(user.id)
@@ -41,8 +39,7 @@ export default async function handler(req, res) {
             const data = await response.json()
     
             console.log("Status:", response.status)
-            console.log("API response:", data)
-    
+
             return res.status(200).json(data)
         } catch (error) {
             console.error("API Error: ", error)
@@ -59,12 +56,21 @@ export default async function handler(req, res) {
             }
             // check if plant is already in collection
             const alreadySaved = dbUser.plantCollection.some((p) => p.plant_id === plant.plant_id)
+
             if (alreadySaved) {
                 return res.status(400).json({ message: "This plant is already in your collection" })
             }
             
             // if not, add plant to collection
-            dbUser.plantCollection.push(plant)
+            dbUser.plantCollection.push({
+                plant_id: plant.plant_id,
+                common_name: plant.common_name || "No Name",
+                scientific_name: plant.scientific_name || [],
+                image_url: plant.image_url || plant.imageUrl || null,
+                genus: plant.genus || "",
+                family: plant.family || "",
+            })
+            
             await dbUser.save()
 
             return res.status(200).json({ message: "Plant has been added to your collection"})

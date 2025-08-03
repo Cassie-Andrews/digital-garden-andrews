@@ -6,16 +6,17 @@ export default function PlantCard({ plant }) {
     if (!plant) return null
 
     console.log("Plant card data:", plant)
-
+    const imageUrl = plant.default_image?.medium_url 
+    
     return (
         <div className={styles.card}>
             <Image 
-                src={plant.imageUrl || "/imageplaceholder.jpeg"}
+                src={imageUrl || "/imageplaceholder.jpeg"}
                 alt={plant.common_name || "Plant"} 
                 width={400}
                 height={400}
             />
-            <p>{plant.common_name || "Unknown Plant" }</p>
+            <h2 className={styles.name}>{plant.common_name || "Unknown Plant" }</h2>
         </div>
     )
 }

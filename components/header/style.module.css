@@ -1,5 +1,25 @@
+.header {
+  min-width: 100%;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
   gap: 12px;
+  background-color: var(--forest);
+  padding: 5px 20px;
+}
+
+.welcome {
+  color: var(--fungi);
+  font-size: 115%;
+}
+
+.navlink {
+  color: var(--daisy);
+  font-size: 115%;
+}
+
+.navlink a:hover {
+text-decoration: underline;
 }
