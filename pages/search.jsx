@@ -8,7 +8,6 @@ import { usePlantContext } from "../context"
 import PlantList from "../components/plantList"
 import * as actions from "../context/action"
 import { useState, useRef } from 'react'
-import { searchPlants } from "../util/plant"
 
 // use this page to display search bar and search results with PlantCard components
 // relies on /api/plants/search to actually get data
@@ -43,7 +42,7 @@ export default function Search({ isLoggedIn, plants, user }) {
         if (fetching || !query.trim() || query === previousQuery) return
         setPreviousQuery(query)
         setFetching(true)
-        const res = await fetch(`/api/plants/search?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/plants?q=${encodeURIComponent(query)}`)
         if (res.status !== 200) return
         const data = await res.json()
         dispatch({

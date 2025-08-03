@@ -1,9 +1,9 @@
 // route to handle searching plants and adding to collection
 
-import sessionOptions from "../../../config/session";
+import sessionOptions from "../../config/session";
 import { getIronSession } from "iron-session";
-import User from "../../../db/models/User";
-import dbConnect from "../../../db/controllers/util/connection";
+import User from "../../db/models/User";
+import dbConnect from "../../db/controllers/util/connection";
 
 export default async function handler(req, res) {
     const session = await getIronSession(req, res, sessionOptions)
