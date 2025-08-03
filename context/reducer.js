@@ -1,9 +1,12 @@
 import * as actions from './action'
 
-export default function reducer(state, {action, payload}) {
-    switch(action) {
-        case actions.SEARCH_PLANTS:
-            return {...state, plantSearchResults: payload}
+export default function reducer(state, { type, payload }) {
+    switch(type) {
+        case actions.SET_SEARCH_RESULTS:
+            return {
+                ...state, 
+                searchResults: payload,
+            }
         default:
             return state
     }
