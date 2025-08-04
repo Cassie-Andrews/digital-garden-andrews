@@ -20,11 +20,16 @@ export const getServerSideProps = withIronSessionSsr(
         const props = {}
         
         if (user) {
-            props.user = req.session.user
+            props.user = user
             props.isLoggedIn = true
 
-            const collection = await db.plant.getCollection(user.id)
-            props.collection = collection
+            const collection = await db.plant.getAll(user.id)
+
+            const cleanedCollection = collection.map((plant) => ({
+              ...plant,
+              _id: plant._id?.toString() || null,
+            }))
+            props.collection = cleanedCollection
         } else {
             props.isLoggedIn = false
         }
