@@ -1,5 +1,4 @@
-import Link from "next/link"
-import Image from "next/image"
+/* eslint-disable @next/next/no-img-element */
 import styles from "./style.module.css"
 
 export default function PlantCard({ plant }) {
@@ -10,11 +9,15 @@ export default function PlantCard({ plant }) {
     
     return (
         <div className={styles.card}>
-            <Image 
+            <img
                 src={imageUrl || "/imageplaceholder.jpeg"}
                 alt={plant.common_name || "Plant"} 
                 width={400}
                 height={400}
+                onError={(e) => {
+                    e.target.onerror = null 
+                    e.target.src = "/imageplaceholder.jpeg"
+                }}
             />
             <h2 className={styles.name}>{plant.common_name || "Unknown Plant" }</h2>
         </div>
