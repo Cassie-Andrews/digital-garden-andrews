@@ -46,10 +46,15 @@ export default function Plant({ plant: userPlant, isLoggedIn }) {
     
     // Add to collection
     async function addToCollection() {
+        console.log("Submitting plant data:", plant)
+        if (!plant) {
+            alert("No plant object")
+            return
+        }
         const response = await fetch('/api/plants', {
             method: 'POST',
-            header: {
-                'content-type': 'application/json',
+            headers: {
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 ...plant,
@@ -58,6 +63,7 @@ export default function Plant({ plant: userPlant, isLoggedIn }) {
         })
         
         const text = await response.text()
+
         try {
             const data = JSON.parse(text)
             if (response.ok) {
@@ -77,7 +83,7 @@ export default function Plant({ plant: userPlant, isLoggedIn }) {
         const response = await fetch('/api/plants', {
             method: 'DELETE',
             headers: {
-                'content-type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({id: plant.id})
         })
