@@ -25,11 +25,7 @@ export const getServerSideProps = withIronSessionSsr(
 
             const collection = await db.plant.getAll(user.id)
 
-            const cleanedCollection = collection.map((plant) => ({
-              ...plant,
-              _id: plant._id?.toString() || null,
-            }))
-            props.collection = cleanedCollection
+            props.collection = collection
         } else {
             props.isLoggedIn = false
         }
@@ -38,24 +34,23 @@ export const getServerSideProps = withIronSessionSsr(
     sessionOptions
 )
 
-export default function Collection(props) {
+export default function Collection({ collection = [], isLoggedIn, user }) {
     const router = useRouter();
     const logout = useLogout();
-    const { user, isLoggedIn, collection = [] } = props
     
     return (
     <div className={styles.container}>
       <Head>
-        <title>{props.user?.username}&apos;s Plant Collection</title>
+        <title>{user?.username}&apos;s Plant Collection</title>
         <meta name="description" content="Plant collection" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header isLoggedIn={props.isLoggedIn} username={props.user.username} />
+      <Header isLoggedIn={isLoggedIn} username={user.username} />
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          {props.user?.username}&apos;s Plant Collection
+          {user?.username}&apos;s Plant Collection
         </h1>
 
       {collection.length > 0 ? (

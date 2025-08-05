@@ -4,6 +4,7 @@ import sessionOptions from "../../config/session";
 import { getIronSession } from "iron-session";
 import User from "../../db/models/User";
 import dbConnect from "../../db/controllers/util/connection";
+import { normalizePlant } from "../../db/controllers/util/normalizePlant"; 
 
 export default async function handler(req, res) {
     const session = await getIronSession(req, res, sessionOptions)
@@ -49,28 +50,23 @@ export default async function handler(req, res) {
 
     // ADD plant to collection
         case 'POST': {
-            const plant = req.body
+            const rawPlant = req.body
             // check for plant
-            if (!plant || !plant.plant_id) {
+            if (!rawPlant || !(rawPlant.plant_id || rawPlant.id)) {
                 return res.status(400).json({ message: "No plant data"})
             }
+            // finalize format for saved plant
+            const plantToSave = normalizePlant(rawPlant)
+            
             // check if plant is already in collection
-            const alreadySaved = dbUser.plantCollection.some((p) => p.plant_id === plant.plant_id)
+            const alreadySaved = dbUser.plantCollection.some((p) => p.plant_id === plantToSave.plant_id)
 
             if (alreadySaved) {
                 return res.status(400).json({ message: "This plant is already in your collection" })
             }
             
             // if not, add plant to collection
-            dbUser.plantCollection.push({
-                plant_id: plant.plant_id,
-                common_name: plant.common_name || "No Name",
-                scientific_name: plant.scientific_name || [],
-                image_url: plant.image_url || plant.imageUrl || null,
-                genus: plant.genus || "",
-                family: plant.family || "",
-            })
-            
+            dbUser.plantCollection.push(plantToSave)
             await dbUser.save()
 
             return res.status(200).json({ message: "Plant has been added to your collection"})

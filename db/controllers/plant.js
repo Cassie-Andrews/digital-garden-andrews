@@ -1,19 +1,13 @@
 import User from '../models/User'
 import dbConnect from './util/connection'
+import { normalizePlant } from './util/normalizePlant'
 
 export async function getAll(userId) {
     await dbConnect()
     const user = await User.findById(userId).lean()
-    if (!user) return null
+    if (!user) return []
 
-
-    const cleanedCollection = user.plantCollection.map(plant => {
-        return {
-        ...plant,
-        _id: plant._id.toString(),
-        }   
-    })
-    return cleanedCollection
+    return user.plantCollection.map(normalizePlant)
 }
 
 export async function getByPlantId(userId, plantId) {
@@ -22,15 +16,13 @@ export async function getByPlantId(userId, plantId) {
     if (!user) return null
 
     const plant = user.plantCollection.find((plant) => plant.plant_Id === plantId)
-    if (plant) return {
-        ...plant,
-        _id: plant._id.toString(),
-    }
+    if (plant) return normalizePlant(plant)
+    return null
 }
 
 export async function getCollection(userId) {
     await dbConnect()
     const user = await User.findById(userId).lean()
     if (!user) return null
-    return user.plantCollection || []
+    return user.plantCollection.map(normalizePlant) || []
 }
