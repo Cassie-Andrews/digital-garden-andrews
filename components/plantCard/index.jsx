@@ -2,19 +2,38 @@
 import styles from "./style.module.css"
 
 export default function PlantCard({ plant }) {
-    if (!plant) return null
-
     console.log("Plant card data:", plant)
+
+    const { imageUrl, common_name, scientific_name, family } = plant
+
+    return (
+        <div className={styles.card}>
+            <img
+                src={imageUrl}
+                alt={common_name || ""} 
+                width={400}
+                height={400}
+                onError={(e) => {
+                    e.target.onerror = null 
+                    e.target.src = "/imageplaceholder.jpeg"
+                }}
+            />
+            <h2 className={styles.name}>{(plant.common_name || "Unknown Plant").replace(/\b\w/g, (c) => c.toUpperCase())}</h2>
+            {scientific_name?.length > 0 && <p><em>{scientific_name.join(", ")}</em></p>}
+            {family && <p>{family}</p>}
+        </div>
+    )
+    /*
     const imageUrl = 
         plant?.default_image?.medium_url || 
-        plant?.image_url || 
+        plant?.image_url || plant.imageUrl ||
         "/imageplaceholder.jpeg"
     
     return (
         <div className={styles.card}>
             <img
                 src={imageUrl}
-                alt={plant.common_name || "Plant"} 
+                alt={plant.common_name || ""} 
                 width={400}
                 height={400}
                 onError={(e) => {
@@ -25,4 +44,5 @@ export default function PlantCard({ plant }) {
             <h2 className={styles.name}>{(plant.common_name || "Unknown Plant").replace(/\b\w/g, (c) => c.toUpperCase())}</h2>
         </div>
     )
+    */
 }

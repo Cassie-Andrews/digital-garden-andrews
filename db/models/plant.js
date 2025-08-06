@@ -1,11 +1,10 @@
 import { Schema } from 'mongoose'
 
 export const plantSchema = new Schema({
-    id: Number,
-    commonName: String,
-    scientificName: [String],
-    image: {
-    url: String,
-    alt: String,
-    },
+    plant_id: String,
+    common_name: String,
+    scientific_name: [String],
+    imageUrl: String,
+    family: String,
+    genus: String
 })

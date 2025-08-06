@@ -1,22 +1,20 @@
+// use this page to display user's plant collection
+
 import Head from "next/head"
-import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
+/*
+import { useRouter } from "next/router"
 import { useEffect } from "react"
-
-import styles from "../styles/Home.module.css"
+*/
 import { withIronSessionSsr } from "iron-session/next"
 import sessionOptions from "../config/session"
-import Header from "../components/header"
-import useLogout from "../hooks/useLogout";
 
+import Header from "../components/header"
 import PlantList from "../components/plantList"
 import db from "../db"
 
-import { usePlantContext } from "../context"
-import * as actions from "../context/action"
-
-// use this page to display user's plant collection
+import styles from "../styles/Home.module.css"
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req }) {
@@ -24,12 +22,10 @@ export const getServerSideProps = withIronSessionSsr(
         const props = {}
         
         if (user) {
-            props.user = user
-            props.isLoggedIn = true
-
-            const collection = await db.plant.getAll(user.id)
-            props.collection = collection
-
+          const collection = await db.plant.getAll(user.id)
+          props.user = user
+          props.isLoggedIn = true
+          props.collection = collection
         } else {
             props.isLoggedIn = false
         }
@@ -38,8 +34,9 @@ export const getServerSideProps = withIronSessionSsr(
     sessionOptions
 )
 
-export default function Collection({ collection = [], isLoggedIn, user }) {
-    const router = useRouter();
+export default function Collection({ user, isLoggedIn, collection = [] }) {
+  /*  
+  const router = useRouter();
     const logout = useLogout();
     const [state, dispatch] = usePlantContext()
 
@@ -51,7 +48,7 @@ export default function Collection({ collection = [], isLoggedIn, user }) {
         })
       }
     }, [collection, dispatch])
-
+  */
     return (
     <div className={styles.container}>
       <Head>
@@ -67,8 +64,8 @@ export default function Collection({ collection = [], isLoggedIn, user }) {
           {user?.username}&apos;s Plant Collection
         </h1>
       
-      {collection.length > 0 ? (
-        <PlantList plants={state.collection}/>
+      {collection?.length > 0 ? (
+        <PlantList plants={collection} />
       ) : (
         <p>Your collection is empty! Try <Link href="/search" className="link">searching</Link> for plants.</p>
       )}
