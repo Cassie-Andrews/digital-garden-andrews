@@ -114,12 +114,6 @@
   font-size: 1.5rem;
 }
 
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
 .logo {
   height: 1em;
   margin-left: 0.5rem;
@@ -133,12 +127,18 @@
 }
 
 @media (prefers-color-scheme: dark) {
+  .title,
+  .main {
+    color: var(--fungi);
+  }
+  
   .card,
   .footer {
-    border-color: #222;
+    border-color: var(--sky);
+    color: var(--sky);
   }
   .code {
-    background: #111;
+    background: var(--sky);
   }
   .logo img {
     filter: invert(1);

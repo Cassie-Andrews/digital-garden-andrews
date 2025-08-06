@@ -22,6 +22,10 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  letter-spacing: -0.03em;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -31,7 +35,7 @@ a {
     color-scheme: dark;
   }
   body {
-    color: white;
-    background: black;
+    color: var(--fungi);
+    background: var(--forest);
   }
 }
