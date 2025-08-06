@@ -51,12 +51,13 @@ export default async function handler(req, res) {
     // ADD plant to collection
         case 'POST': {
             const rawPlant = req.body
+            // final format for saved plant
+            const plantToSave = normalizePlant(rawPlant)
+
             // check for plant
             if (!rawPlant || !(rawPlant.plant_id || rawPlant.id)) {
                 return res.status(400).json({ message: "No plant data"})
             }
-            // finalize format for saved plant
-            const plantToSave = normalizePlant(rawPlant)
             
             // check if plant is already in collection
             const alreadySaved = dbUser.plantCollection.some((p) => p.plant_id === plantToSave.plant_id)

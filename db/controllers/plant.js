@@ -7,7 +7,7 @@ export async function getAll(userId) {
     const user = await User.findById(userId).lean()
     if (!user) return []
 
-    return user.plantCollection.map(normalizePlant)
+    return user.plantCollection.map((plant) => normalizePlant(plant))
 }
 
 export async function getByPlantId(userId, plantId) {

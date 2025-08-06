@@ -2,6 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect } from "react"
 
 import styles from "../styles/Home.module.css"
 import { withIronSessionSsr } from "iron-session/next"
@@ -11,6 +12,9 @@ import useLogout from "../hooks/useLogout";
 
 import PlantList from "../components/plantList"
 import db from "../db"
+
+import { usePlantContext } from "../context"
+import * as actions from "../context/action"
 
 // use this page to display user's plant collection
 
@@ -24,8 +28,8 @@ export const getServerSideProps = withIronSessionSsr(
             props.isLoggedIn = true
 
             const collection = await db.plant.getAll(user.id)
-
             props.collection = collection
+
         } else {
             props.isLoggedIn = false
         }
@@ -37,7 +41,17 @@ export const getServerSideProps = withIronSessionSsr(
 export default function Collection({ collection = [], isLoggedIn, user }) {
     const router = useRouter();
     const logout = useLogout();
-    
+    const [state, dispatch] = usePlantContext()
+
+    useEffect (() => {
+      if (collection.length > 0) {
+        dispatch({
+          type: actions.SET_COLLECTION,
+          payload: collection,
+        })
+      }
+    }, [collection, dispatch])
+
     return (
     <div className={styles.container}>
       <Head>
@@ -52,9 +66,9 @@ export default function Collection({ collection = [], isLoggedIn, user }) {
         <h1 className={styles.title}>
           {user?.username}&apos;s Plant Collection
         </h1>
-
+      
       {collection.length > 0 ? (
-        <PlantList plants={collection}/>
+        <PlantList plants={state.collection}/>
       ) : (
         <p>Your collection is empty! Try <Link href="/search" className="link">searching</Link> for plants.</p>
       )}
