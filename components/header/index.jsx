@@ -24,7 +24,7 @@ export default function Header({ isLoggedIn, username }) {
     <header className={styles.header}>
       <div className={styles.navbar}>
         {/* site title */}
-        <p className={styles.title}><Link href="/">Website Title</Link>
+        <p className={styles.navtitle}><Link href="/">🪴 Digital Garden</Link>
         </p>
           
         {/*nav hamburger menu*/}

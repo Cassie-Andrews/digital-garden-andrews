@@ -1,9 +1,10 @@
 .header {
-  background: var(--fungi);
+  background: var(--forest);
   padding: 1rem;
   position: relative;
-  z-index: 2000;
+  z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--forest);
 }
 
 .navbar {
@@ -12,15 +13,16 @@
   align-items: center;
 }
 
-.title {
-  font-size: 1.5rem;
-  color: var(--rust);
-  font-weight: bold;
+.navtitle {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--daisy);
+  font-weight: 400;
   letter-spacing: -0.01em;
   transition-duration: 0.4s;
 }
-.title:hover {
-  color: var(--forest);
+.navtitle:hover {
+  color: var(--lime);
 }
 
 .navRight {
@@ -30,27 +32,25 @@
 }
 
 .hamburger {
-  font-size: 2rem;
-  background: var(--rust);
-  border: 1px solid var(--forest);
-  padding: 5px 15px;
+  font-size: 3rem;
+  background: var(--forest);
+  border: 0;
+  padding: 1px 10px;
   border-radius: .25rem;
   transition-duration: 0.4s;
-  color: var(--fungi);
+  color: var(--daisy);
 }
 .hamburger:hover {
-  background: var(--daisy);
-  color: var(--rust);
-  border: 1px solid var(--rust);
+  color: var(--lime);
   cursor: pointer;
 }
 
 .menu {
   position: absolute;
-  top: 150%;
+  top: 125%;
   right: 0;
   padding: 2rem;
-  background-color: var(--fungi);
+  background-color: var(--forest);
   min-width: 280px;
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -68,14 +68,14 @@
   margin: 1rem 0 0 0;
   font-size: 1.2rem;
   transition-duration: 0.4s;
-  color: var(--forest);
+  color: var(--daisy);
 }
 
 .navlink:hover {
-color: var(--rust);
+color: var(--lime);
 }
 
 .welcome {
   font-size: 1.5rem;
-  color: var(--rust);
+  color: var(--lime);
 }

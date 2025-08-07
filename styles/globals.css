@@ -1,11 +1,10 @@
 :root {
-  --forest: #1D4036;
   --rust: #C1752F;
-  --daisy: #F1CD5E;
-  --moss: #B8C99E;
-  --sky: #B8CEEA;
-  --lavendar: #A694C2;
-  --fungi: #F0E9D4; 
+  --fungi: #feffe0; 
+  --daisy: #efff81;
+  --lime: #cdff00;
+  --moss: #649d00;
+  --forest: #213a00;
 }
 
 
@@ -15,6 +14,7 @@ body {
   margin: 0;
   font-family: lora;
   background-color: var(--fungi);
+  color: var(--forest);
 }
 
 a {
