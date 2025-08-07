@@ -123,6 +123,18 @@
   margin-left: 0.5rem;
 }
 
+.plantActionBlock {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.plantActionBlock > button {
+  margin: 1rem;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

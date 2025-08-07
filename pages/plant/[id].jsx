@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePlantContext } from "../../context";
 import styles from "../../styles/Home.module.css"
 import { withIronSessionSsr } from "iron-session/next";
@@ -40,13 +40,13 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         .find((p) => String(p.plant_id || p.id) === plantId)
     
     const plant = userPlant || fallbackPlant
-    const inCollection = !!userPlant
+    
+    const [ inCollection, setInCollection ] = useState(!!userPlant)
 
     // no plant from search/context or getServerSideProps/collections -> redirect
     useEffect(() => {
-        if (!plant)
-            router.push('/')
-    }, [plant, router])
+        setInCollection(!!userPlant)
+    }, [userPlant])
     
     // Add to collection
     async function addToCollection() {
@@ -71,8 +71,8 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         try {
             const data = JSON.parse(text)
             if (response.ok) {
-                alert("plant added")
-                router.replace(router.asPath)
+                alert("Plant added")
+                setInCollection(true);
             } else {
                 alert(`Error: ${data.message}`)
             }
@@ -84,16 +84,26 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
 
     // remove from collection
     async function removeFromCollection() {
+        const plantId = plant.plant_id || plant.id
+        if (!plantId) {
+            alert("No valid plant id found")
+            return
+        }
+
         const response = await fetch('/api/plants', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({id: plant.id})
+            body: JSON.stringify({ plant_id: plantId.toString() })
         })
         
         if (response.ok) {
-            router.replace(router.asPath)
+            alert(`Plant was successfully removed.`)
+            setInCollection(false)
+        } else {
+            const error = await response.json()
+            alert(`Error removing plant: ${error.message}`)
         }
     }
 
@@ -107,7 +117,7 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
 
             {plant && (
                 <main className={styles.container}>
-                    <div className={styles.actionBlock}>
+                    <div className={styles.plantActionBlock}>
                         {isLoggedIn && (
                             inCollection ? (
                                 <button onClick={removeFromCollection}>Remove from Collection</button>
