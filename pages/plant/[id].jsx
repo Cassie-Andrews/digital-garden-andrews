@@ -71,7 +71,10 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         try {
             const data = JSON.parse(text)
             if (response.ok) {
-                alert("Plant added")
+                const goToCollection = confirm("Plant was added! View updated collection?")
+                if (goToCollection) {
+                    router.push("/collection")
+                }
                 setInCollection(true);
             } else {
                 alert(`Error: ${data.message}`)
@@ -99,8 +102,11 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         })
         
         if (response.ok) {
-            alert(`Plant was successfully removed.`)
-            setInCollection(false)
+                const goToCollection = confirm("Plant was successfully removed! View updated collection?")
+                if (goToCollection) {
+                    router.push("/collection")
+                }
+                setInCollection(false);
         } else {
             const error = await response.json()
             alert(`Error removing plant: ${error.message}`)
