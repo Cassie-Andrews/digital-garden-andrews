@@ -9,6 +9,7 @@ export default function PlantCard({ plant }) {
     return (
         <div className={styles.card}>
             <img
+                className={styles.plantImage}
                 src={imageUrl}
                 alt={common_name || ""} 
                 width={400}
@@ -18,9 +19,11 @@ export default function PlantCard({ plant }) {
                     e.target.src = "/imageplaceholder.jpeg"
                 }}
             />
-            <h2 className={styles.name}>{(plant.common_name || "Unknown Plant").replace(/\b\w/g, (c) => c.toUpperCase())}</h2>
-            {scientific_name?.length > 0 && <p><em>{scientific_name.join(", ")}</em></p>}
-            {family && <p>{family}</p>}
+            <div className={styles.plantInfo}>
+                <h2 className={styles.name}>{(plant.common_name || "Unknown Plant").replace(/\b\w/g, (c) => c.toUpperCase())}</h2>
+                {scientific_name?.length > 0 && <p className={styles.scientificName}>Scientific Name: <em>{scientific_name.join(", ")}</em></p>}
+                {family && <p className={styles.family}>Family: {family}</p>}
+            </div>
         </div>
     )
     /*
