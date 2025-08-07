@@ -15,9 +15,8 @@ export async function getByPlantId(userId, plantId) {
     const user = await User.findById(userId).lean()
     if (!user) return null
 
-    const plant = user.plantCollection.find((plant) => plant.plant_Id === plantId)
-    if (plant) return normalizePlant(plant)
-    return null
+    const plant = user.plantCollection.find((plant) => String(plant.plant_id) === String(plantId))
+    return plant ? normalizePlant(plant) : null
 }
 
 export async function getCollection(userId) {

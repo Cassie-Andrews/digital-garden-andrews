@@ -30,6 +30,21 @@ h1 {
   box-sizing: border-box;
 }
 
+button {
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: 0.15s ease;
+  font-family: lora;
+  color: var(--fungi);
+  background-color: var(--moss);
+  border-radius: 0.2rem;
+  border: 1px solid var(--forest);
+  padding: 0.25rem 1rem;
+}
+button:is(:hover, :focus, :active) {
+  color: var(--forest);
+  background-color: var(--lime);
+}
 
 @media (prefers-color-scheme: dark) {
   html {

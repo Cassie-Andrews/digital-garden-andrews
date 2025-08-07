@@ -7,17 +7,19 @@ import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../../config/session";
 import Header from "../../components/header";
 import PlantCard from "../../components/plantCard";
+import { normalizePlant } from "../../db/controllers/util/normalizePlant";
 import db from "../../db";
 
 // uses getServerSideProps to get plant data by id for one specific plant
 
 export const getServerSideProps = withIronSessionSsr(
     async function getServerSideProps({ req, params }) {
-        const { user } = req.session
+        const user = req.session.user
         const props = { isLoggedIn: !!user }
 
         if (user) {
             props.user = user
+            props.username = user.username
 
             const plant = await db.plant.getByPlantId(user.id, params.id)
             if (plant) props.plant = plant
@@ -28,12 +30,14 @@ export const getServerSideProps = withIronSessionSsr(
 );
 
 // check if plant is in collection
-export default function Plant({ plant: userPlant, isLoggedIn }) {
+export default function Plant({ plant: userPlant, isLoggedIn, username }) {
     const router = useRouter()
     const plantId = router.query.id
     const [{ searchResults }] = usePlantContext()
 
-    const fallbackPlant = searchResults?.find((p) => String(p.plant_id || p.id) === plantId)
+    const fallbackPlant = searchResults
+        ?.map(normalizePlant)
+        .find((p) => String(p.plant_id || p.id) === plantId)
     
     const plant = userPlant || fallbackPlant
     const inCollection = !!userPlant
@@ -99,12 +103,11 @@ export default function Plant({ plant: userPlant, isLoggedIn }) {
                 <title>{plant?.common_name || "Plant Detail"}</title>
             </Head>
             
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} username={username} />
 
             {plant && (
                 <main className={styles.container}>
-                    <PlantCard plant={plant}/>
-                    <div>
+                    <div className={styles.actionBlock}>
                         {isLoggedIn && (
                             inCollection ? (
                                 <button onClick={removeFromCollection}>Remove from Collection</button>
@@ -114,6 +117,7 @@ export default function Plant({ plant: userPlant, isLoggedIn }) {
                         )}
                         <button onClick={() => router.back()}>Return</button>
                     </div>
+                    <PlantCard plant={plant}/>
                 </main>
             )}
         </>
