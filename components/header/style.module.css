@@ -1,7 +1,9 @@
 .header {
   background: var(--fungi);
   padding: 1rem;
-  border-bottom: 1px solid var(--forest);
+  position: relative;
+  z-index: 2000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
@@ -17,23 +19,25 @@
   letter-spacing: -0.01em;
   transition-duration: 0.4s;
 }
-
 .title:hover {
   color: var(--forest);
 }
 
-/* HAMBURGER MENU */
+.navRight {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .hamburger {
   font-size: 2rem;
   background: var(--rust);
   border: 1px solid var(--forest);
   padding: 5px 15px;
-  vertical-align: middle;
   border-radius: .25rem;
   transition-duration: 0.4s;
   color: var(--fungi);
 }
-
 .hamburger:hover {
   background: var(--daisy);
   color: var(--rust);
@@ -42,10 +46,14 @@
 }
 
 .menu {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
+  position: absolute;
+  top: 150%;
+  right: 0;
+  padding: 2rem;
   background-color: var(--fungi);
-  border-top: 1px solid var(--rust);
+  min-width: 280px;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .menu ul {
@@ -57,7 +65,7 @@
 
 /* LINKS */
 .navlink {
-  margin: 1rem 0;
+  margin: 1rem 0 0 0;
   font-size: 1.2rem;
   transition-duration: 0.4s;
   color: var(--forest);
