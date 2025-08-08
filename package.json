@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "config": {
-    "DB_NAME": "mongo_project_db"
+    "DB_NAME": "digital-garden"
   },
   "scripts": {
     "dev": "npm run mongo && next dev",
