@@ -1,5 +1,5 @@
 import { compare } from 'bcrypt'
-import User from '../models/User'
+import User from '../models/user'
 import dbConnect from './util/connection'
 
 export async function login(username, password) {

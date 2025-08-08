@@ -1,4 +1,4 @@
-import User from '../models/User'
+import User from '../models/user'
 import dbConnect from './util/connection'
 import { normalizePlant } from './util/normalizePlant'
 
