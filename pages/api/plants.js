@@ -1,7 +1,7 @@
 // route to post and delete plants from collection
 import sessionOptions from "../../config/session";
 import { getIronSession } from "iron-session";
-import User from "../../db/models/User";
+import User from "../../db/models/user";
 import dbConnect from "../../db/controllers/util/connection";
 import { normalizePlant } from "../../db/controllers/util/normalizePlant"; 
 
