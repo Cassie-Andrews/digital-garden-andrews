@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-page-custom-font */
+/* eslint-disable @next/next/google-font-display */
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,14 +46,18 @@ export default function Home(props) {
         <h1 className={styles.title}>
           Welcome to your Digital Garden
         </h1>
-        <h2 className={styles.tagline}>Search for over 10,000 species of plants</h2>
-
 
         <div className={styles.grid}>
           {props.isLoggedIn ? (
             <>
+              <Link href="/search" className={styles.card}>
+                <h2>Search &rarr;</h2>
+                <p>Search through over 10,000 species of plants.</p>
+              </Link>
+
               <Link href="/collection" className={styles.card}>
                 <h2>Collection &rarr;</h2>
+                <p>Save plants to your collection and view them here.</p>
               </Link>
               <div
                 onClick={logout}
@@ -59,6 +65,7 @@ export default function Home(props) {
                 className={styles.card}
               >
                 <h2>Logout &rarr;</h2>
+                <p>You are currently logged in, click here to log out.</p>
               </div>
             </>
           ) : (

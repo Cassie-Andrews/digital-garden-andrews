@@ -91,7 +91,7 @@ export default function Search({ user, isLoggedIn }) {
             <main className={styles.main}>
                 <h1 className={styles.title}>🔎 Search Plants</h1>
 
-                <div className={styles.searchContainer}>
+                <div className={styles.listContainer}>
                 <form onSubmit={handleSubmit} className={[styles.searchForm, styles.form].join(" ")}>
                     <input
                         ref={inputRef}

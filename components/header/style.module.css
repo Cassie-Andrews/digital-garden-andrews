@@ -81,6 +81,15 @@ color: var(--lime);
   color: var(--lime);
 }
 
+@media (max-width: 420px) {
+.navtitle {
+  font-size: 1.5rem;
+}
+.hamburger {
+  font-size: 2.5rem;
+}
+
+}
 
 @media (prefers-color-scheme: dark) {
 

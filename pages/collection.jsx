@@ -49,8 +49,9 @@ export default function Collection({ user, isLoggedIn, collection = [] }) {
       }
     }, [collection, dispatch])
   */
-    return (
+  return (
     <div className={styles.container}>
+
       <Head>
         <title>{user?.username}&apos;s Plant Collection</title>
         <meta name="description" content="Plant collection" />
@@ -64,11 +65,13 @@ export default function Collection({ user, isLoggedIn, collection = [] }) {
           {user?.username}&apos;s Plant Collection
         </h1>
       
-      {collection?.length > 0 ? (
-        <PlantList plants={collection} />
-      ) : (
-        <p>Your collection is empty! Try <Link href="/search" className="link">searching</Link> for plants.</p>
-      )}
+        <div className={styles.listContainer}>
+          {collection?.length > 0 ? (
+            <PlantList plants={collection} />
+          ) : (
+            <p>Your collection is empty! Try <Link href="/search" className="link">searching</Link> for plants.</p>
+          )}
+        </div>
       </main>
 
       <footer className={styles.footer}>
@@ -83,6 +86,7 @@ export default function Collection({ user, isLoggedIn, collection = [] }) {
           </span>
         </a>
       </footer>
+
     </div>
   );
 }
