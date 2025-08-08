@@ -28,8 +28,12 @@ export function normalizePlant(raw = {}) {
         poisonous: raw.poisonous ?? false,
         cycle: raw.cycle || "",
         watering: raw.watering || "",
-        sunlight: raw.sunlight || "",
+        sunlight: Array.isArray(raw.sunlight)
+            ? raw.sunlight.join(", ")
+            : raw.sunlight || "",
         indoor: raw.indoor ?? false,
-        hardiness: raw.hardiness || "",
+        hardiness: raw.hardiness 
+            ? `${raw.hardiness.min ?? ""}-${raw.hardiness.max ?? ""}`
+            : "",
     }
 }

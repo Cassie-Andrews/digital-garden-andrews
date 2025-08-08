@@ -45,7 +45,7 @@ export default function PlantCardDetail({ plant }) {
                     {watering && <p>Watering: {watering}</p>}
                     {sunlight && <p>Sunlight: {sunlight}</p>}
                     <p>Indoor: {indoor? "Yes" : "No"}</p>
-                    <p>Hardiness Zone: {plant.hardiness ? `${plant.hardiness.min}-${plant.hardiness.max}` : "n/a"}</p>
+                    <p>Hardiness Zone: {plant.hardiness ? plant.hardiness : "n/a"}</p>
                 </div>
             </div>
             

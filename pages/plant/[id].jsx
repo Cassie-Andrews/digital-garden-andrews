@@ -101,6 +101,7 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
             })
 
             const data = await response.json()
+            console.log(data)
 
             if (response.ok) {
                 const goToCollection = confirm("Plant was added! View updated collection?")

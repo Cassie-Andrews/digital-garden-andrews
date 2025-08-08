@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-page-custom-font */
+/* eslint-disable @next/next/google-font-display */
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";

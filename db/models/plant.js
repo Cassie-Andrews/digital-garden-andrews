@@ -13,7 +13,10 @@ export const plantSchema = new Schema({
     poisonous: { type: Boolean, default: false },
     cycle: String,
     watering: String,
-    sunlight: String,
+    sunlight: [String],
     indoor: { type: Boolean, default: false },
-    hardiness: String,
+    hardiness: { 
+        min: String,
+        max: String,
+    },
 })
