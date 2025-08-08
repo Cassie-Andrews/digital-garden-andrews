@@ -6,7 +6,7 @@ import styles from "../../styles/Home.module.css"
 import { withIronSessionSsr } from "iron-session/next";
 import sessionOptions from "../../config/session";
 import Header from "../../components/header";
-import PlantCard from "../../components/plantCard";
+import PlantCardDetail from "../../components/plantCardDetail/plantCardDetail";
 import { normalizePlant } from "../../db/controllers/util/normalizePlant";
 import db from "../../db";
 
@@ -39,7 +39,9 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         ?.map(normalizePlant)
         .find((p) => String(p.plant_id || p.id) === plantId)
     
-    const plant = userPlant || fallbackPlant
+    const [ plant, setPlant ] = useState(userPlant || fallbackPlant)
+    
+    const [ detailedPlant, setDetailedPlant ] = useState(null)
     
     const [ inCollection, setInCollection ] = useState(!!userPlant)
 
@@ -48,6 +50,37 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         setInCollection(!!userPlant)
     }, [userPlant])
     
+
+    useEffect(() => {
+        if (!plantId) return
+
+        if (!detailedPlant || !detailedPlant.sunlight || !detailedPlant.watering) {
+            fetch(
+            `https://perenual.com/api/v2/species/details/${plantId}?key=${process.env.PERENUAL_API_TOKEN}`
+        )
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to get detailed plant info")
+            return res.json()
+        })
+        .then((date) => {
+            if(data) {
+                const normalized = normalizePlant(data)
+                setDetailedPlant(normalized)
+                setPlant((prev) => ({
+                    ...prev, 
+                    ...normalized 
+                }))
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching detained plant info:", error)
+        })
+    }
+}, [plantId, detailedPlant])
+
+
+
+
     // Add to collection
     async function addToCollection() {
         console.log("Submitting plant data:", plant)
@@ -55,21 +88,20 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
             alert("No plant object")
             return
         }
-        const response = await fetch('/api/plants', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                ...plant,
-                plant_id: plant.plant_id || plant.id,
-            })
-        })
-        
-        const text = await response.text()
-
         try {
-            const data = JSON.parse(text)
+            const response = await fetch('/api/plants', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...plant,
+                    plant_id: plant.plant_id || plant.id,
+                })
+            })
+
+            const data = await response.json()
+
             if (response.ok) {
                 const goToCollection = confirm("Plant was added! View updated collection?")
                 if (goToCollection) {
@@ -80,7 +112,7 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
                 alert(`Error: ${data.message}`)
             }
         } catch (err) {
-            console.error("Invalid JSON:", text)
+            console.error("Error", err)
             alert("Error :(")
         }
     }
@@ -93,23 +125,28 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
             return
         }
 
-        const response = await fetch('/api/plants', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ plant_id: plantId.toString() })
-        })
-        
-        if (response.ok) {
-                const goToCollection = confirm("Plant was successfully removed! View updated collection?")
-                if (goToCollection) {
-                    router.push("/collection")
-                }
-                setInCollection(false);
-        } else {
-            const error = await response.json()
-            alert(`Error removing plant: ${error.message}`)
+        try {
+            const response = await fetch('/api/plants', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ plant_id: plantId.toString() })
+            })
+            
+            if (response.ok) {
+                    const goToCollection = confirm("Plant was successfully removed! View updated collection?")
+                    if (goToCollection) {
+                        router.push("/collection")
+                    }
+                    setInCollection(false);
+            } else {
+                const error = await response.json()
+                alert(`Error removing plant: ${error.message}`)
+            }
+        } catch (err) {
+            console.error("Remove failed", err)
+            alert(`Error D:`)
         }
     }
 
@@ -133,7 +170,7 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
                         )}
                         <button onClick={() => router.back()}>Return</button>
                     </div>
-                    <PlantCard plant={plant}/>
+                    <PlantCardDetail plant={plant}/>
                 </main>
             )}
         </>

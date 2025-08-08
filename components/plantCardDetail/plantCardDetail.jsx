@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./style.module.css"
 
-export default function PlantCard({ plant }) {
+export default function PlantCardDetail({ plant }) {
     console.log("Plant card data:", plant)
 
     const {

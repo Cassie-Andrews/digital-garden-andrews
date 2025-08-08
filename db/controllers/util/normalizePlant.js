@@ -22,5 +22,14 @@ export function normalizePlant(raw = {}) {
             "/imageplaceholder.jpeg",
         family: raw.family || "",
         genus: raw.genus || "",
+
+        order: raw.order || "",
+        edible: raw.edible ?? false,
+        poisonous: raw.poisonous ?? false,
+        cycle: raw.cycle || "",
+        watering: raw.watering || "",
+        sunlight: raw.sunlight || "",
+        indoor: raw.indoor ?? false,
+        hardiness: raw.hardiness || "",
     }
 }

@@ -51,7 +51,7 @@ export default function Search({ user, isLoggedIn }) {
         setPreviousQuery(query)
 
         try {
-            const response = await fetch(`/api/plants?q=${query}`, {
+            const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
                 method: "GET",
                 credentials: "include",
             });

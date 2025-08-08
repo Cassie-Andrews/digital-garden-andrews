@@ -6,5 +6,14 @@ export const plantSchema = new Schema({
     scientific_name: [String],
     imageUrl: String,
     family: String,
-    genus: String
+    genus: String,
+
+    order: String,
+    edible: { type: Boolean, default: false },
+    poisonous: { type: Boolean, default: false },
+    cycle: String,
+    watering: String,
+    sunlight: String,
+    indoor: { type: Boolean, default: false },
+    hardiness: String,
 })
