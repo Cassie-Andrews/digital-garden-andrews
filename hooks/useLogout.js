@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-export default function() {
+export default function useLogout() {
   const router = useRouter()
   return async function handleLogout() {
     try {
