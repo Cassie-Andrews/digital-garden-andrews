@@ -56,13 +56,13 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
 
         if (!detailedPlant || !detailedPlant.sunlight || !detailedPlant.watering) {
             fetch(
-            `https://perenual.com/api/v2/species/details/${plantId}?key=${process.env.PERENUAL_API_TOKEN}`
+            `/api/plantDetail?id=${plantId}`
         )
         .then((res) => {
             if (!res.ok) throw new Error("Failed to get detailed plant info")
             return res.json()
         })
-        .then((date) => {
+        .then((data) => {
             if(data) {
                 const normalized = normalizePlant(data)
                 setDetailedPlant(normalized)
