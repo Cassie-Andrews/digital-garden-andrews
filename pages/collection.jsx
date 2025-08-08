@@ -55,7 +55,7 @@ export default function Collection({ user, isLoggedIn, collection = [] }) {
       <Head>
         <title>{user?.username}&apos;s Plant Collection</title>
         <meta name="description" content="Plant collection" />
-        <link rel="icon" type="image/png" href="/public/favicon" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
       </Head>
 
       <Header isLoggedIn={isLoggedIn} username={user.username} />
@@ -69,7 +69,7 @@ export default function Collection({ user, isLoggedIn, collection = [] }) {
           {collection?.length > 0 ? (
             <PlantList plants={collection} />
           ) : (
-            <p>Your collection is empty! Try <Link href="/search" className="link">searching</Link> for plants.</p>
+            <p>Your collection is empty! Try <Link href="/search" className="styles.link">searching</Link> for plants.</p>
           )}
         </div>
       </main>

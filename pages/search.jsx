@@ -85,6 +85,7 @@ export default function Search({ user, isLoggedIn }) {
         <div className={styles.container}>
             <Head>
                 <title>Search Plants</title>
+                <link rel="icon" type="image/png" href="/favicon.png" />
             </Head>
 
         <Header isLoggedIn={isLoggedIn} username={user?.username} />            

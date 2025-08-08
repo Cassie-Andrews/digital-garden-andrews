@@ -51,26 +51,4 @@ export default function PlantCardDetail({ plant }) {
             
         </div>
     )
-    /*
-    const imageUrl = 
-        plant?.default_image?.medium_url || 
-        plant?.image_url || plant.imageUrl ||
-        "/imageplaceholder.jpeg"
-    
-    return (
-        <div className={styles.card}>
-            <img
-                src={imageUrl}
-                alt={plant.common_name || ""} 
-                width={400}
-                height={400}
-                onError={(e) => {
-                    e.target.onerror = null 
-                    e.target.src = "/imageplaceholder.jpeg"
-                }}
-            />
-            <h2 className={styles.name}>{(plant.common_name || "Unknown Plant").replace(/\b\w/g, (c) => c.toUpperCase())}</h2>
-        </div>
-    )
-    */
 }

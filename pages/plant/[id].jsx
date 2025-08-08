@@ -157,6 +157,7 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
         <>
             <Head>
                 <title>{plant?.common_name || "Plant Detail"}</title>
+                <link rel="icon" type="image/png" href="/favicon.png" />
             </Head>
             
             <Header isLoggedIn={isLoggedIn} username={username} />
