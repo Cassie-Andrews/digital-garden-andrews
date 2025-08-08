@@ -193,9 +193,7 @@
     border-color: var(--sky);
     color: var(--sky);
   }
-  .code {
-    background: var(--sky);
-  }
+
   .logo img {
     filter: invert(1);
   }

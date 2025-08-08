@@ -55,7 +55,7 @@ export default function Collection({ user, isLoggedIn, collection = [] }) {
       <Head>
         <title>{user?.username}&apos;s Plant Collection</title>
         <meta name="description" content="Plant collection" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/public/favicon" />
       </Head>
 
       <Header isLoggedIn={isLoggedIn} username={user.username} />
