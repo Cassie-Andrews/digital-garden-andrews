@@ -6,6 +6,9 @@
     margin: 10px;
     border-radius: 4px;
     border: 1px solid var(--forest);
+    width: 442px;
+    height: 600px;
+    gap: 1rem;
 }
 
 .card:is(:hover, :focus, :active) {
@@ -25,6 +28,7 @@
 
 .name {
     color: var(--forest);
+    margin-top: 0.5rem;
 }
 
 

@@ -91,6 +91,7 @@ export default function Search({ user, isLoggedIn }) {
             <main className={styles.main}>
                 <h1 className={styles.title}>🔎 Search Plants</h1>
 
+                <div className={styles.searchContainer}>
                 <form onSubmit={handleSubmit} className={[styles.searchForm, styles.form].join(" ")}>
                     <input
                         ref={inputRef}
@@ -118,6 +119,7 @@ export default function Search({ user, isLoggedIn }) {
                         clearSearch={clearSearch}
                     />
                 )}
+                </div>
             </main>
         </div>
     )

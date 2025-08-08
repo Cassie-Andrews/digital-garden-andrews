@@ -37,16 +37,6 @@ export default function PlantCard({ plant }) {
                 {scientific_name?.length > 0 && <p className={styles.scientificName}>Scientific Name: <em>{scientific_name.join(", ")}</em></p>}
                 {family && <p className={styles.family}>Family: {family}</p>}
                 {order && <p className={styles.order}>Order: {order}</p>}
-                
-                <div className={styles.morePlantInfo}>
-                    <p>Edible: {edible? "Yes" : "No"}</p>
-                    <p>Poisonous: {poisonous? "Yes" : "No"}</p>
-                    {cycle && <p>Cycle: {cycle}</p>}
-                    {watering && <p>Watering: {watering}</p>}
-                    {sunlight && <p>Sunlight: {sunlight}</p>}
-                    <p>Indoor: {indoor? "Yes" : "No"}</p>
-                    {hardiness && <p>Hardiness Zone: {hardiness}</p>}
-                </div>
             </div>
             
         </div>

@@ -9,6 +9,8 @@ import Header from "../../components/header";
 import PlantCardDetail from "../../components/plantCardDetail/plantCardDetail";
 import { normalizePlant } from "../../db/controllers/util/normalizePlant";
 import db from "../../db";
+import Image from "next/image";
+import Link from "next/link";
 
 // uses getServerSideProps to get plant data by id for one specific plant
 
@@ -160,8 +162,16 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
             <Header isLoggedIn={isLoggedIn} username={username} />
 
             {plant && (
-                <main className={styles.container}>
+                <main className={styles.main}>
                     <div className={styles.plantActionBlock}>
+                        <a href='#'
+                            className={styles.link}
+                            onClick={(e) => {
+                                e.preventDefault();router.back();
+                            }}> &larr; Return to Search
+                        </a>
+                        
+                        
                         {isLoggedIn && (
                             inCollection ? (
                                 <button onClick={removeFromCollection}>Remove from Collection</button>
@@ -169,11 +179,24 @@ export default function Plant({ plant: userPlant, isLoggedIn, username }) {
                                 <button onClick={addToCollection}>Add to Collection</button>
                             )
                         )}
-                        <button onClick={() => router.back()}>Return</button>
+
                     </div>
                     <PlantCardDetail plant={plant}/>
                 </main>
             )}
+            
+            <footer className={styles.footer}>
+                <a
+                href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                >
+                Powered by{" "}
+                <span className={styles.logo}>
+                    <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+                </span>
+                </a>
+            </footer>
         </>
     )
 }

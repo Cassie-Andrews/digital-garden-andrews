@@ -1,9 +1,9 @@
 .main {
   min-height: 100vh;
-  padding: 4rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+
   align-items: center;
 }
 
@@ -123,6 +123,15 @@
   margin-left: 0.5rem;
 }
 
+/** SEARCH PAGE **/
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .plantActionBlock {
   display: flex;
   margin-top: 1rem;
@@ -131,9 +140,22 @@
   align-items: center;
 }
 
-.plantActionBlock > button {
-  margin: 1rem;
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
+
+.searchForm > input {
+  margin: 1rem 0.5rem;
+
+}
+
+.searchForm > button {
+  margin: 1rem 0.5rem;
+}
+
 
 @media (max-width: 600px) {
   .grid {
