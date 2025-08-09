@@ -62,10 +62,9 @@ Learn more about [Perenual](https://perenual.com/) plant data.
 * Opt in for plant care reminders
 * Add notes and images to your collected plants
 
-### Feedback:
+---
+
+### Submit Feedback
 Let us know how to improve Digital Garden and what features you'd like us to implement [here](#).
 
-### 🪲 Report Bugs:
-[Contact us](#) to report a bug.
-
-
+[🪲 Report a Bug](#)
