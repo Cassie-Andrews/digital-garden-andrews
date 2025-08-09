@@ -56,15 +56,16 @@ Digital Garden accesses two API endpoints:
 ## 👨🏼‍🌾 Hey Plant Enthusiasts👋
 Learn more about [Perenual](https://perenual.com/) plant data.
 
-We want your feedback! Let us know how to improve Digital Garden and what features you'd like us to implement [here](#).
-
-#### Features already planned for future updates:
+### Coming Soon:
 * Hardiness zone maps
 * Search filtering by plant care needs, hardiness zones, and more
 * Opt in for plant care reminders
 * Add notes and images to your collected plants
 
-#### 🪲 Report Bugs
+### Feedback:
+Let us know how to improve Digital Garden and what features you'd like us to implement [here](#).
+
+### 🪲 Report Bugs:
 [Contact us](#) to report a bug.
 
 
